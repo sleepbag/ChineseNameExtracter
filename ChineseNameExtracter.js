@@ -1,5 +1,7 @@
 class ChineseNameExtracter {
   constructor(){
+    // 中文姓氏表
+    // 依照近二十年來的姓氏排行
     this._lastNames=[
       ,"陳"
       ,"林"
@@ -5272,7 +5274,7 @@ class ChineseNameExtracter {
 
   Process(string){
     var names = new Array();
-
+    var allNames_tmp = new Array();
     if(string==undefined){
       return names;
     }
@@ -5283,10 +5285,28 @@ class ChineseNameExtracter {
       let results ;
       
       while((results=lastName_reg.exec(string))!== null){
-        
-
         if(results!==null){
-          names.push(results[0]);
+          if(!this.isSpecialCase(results[0])){
+
+            var obj = {
+              "姓":lastName,
+              "姓名":results[0]
+            }
+            var isContainName = false;
+            allNames_tmp.forEach(Allname=>{
+              if(Allname.indexOf(results[0]) > -1){
+                isContainName = true;
+                return false;
+              }
+            });
+            if(!isContainName){
+              names.push(obj);
+              allNames_tmp.push(results[0]);
+            }
+
+          }
+          
+          
         }
       };
 
@@ -5298,6 +5318,32 @@ class ChineseNameExtracter {
     // 加入姓名候選名單
     
     return names;
+  }
+
+
+  isSpecialCase(string){
+    var isContain = this.Contain(string);
+    var isAddress = false;
+
+    if(regEx_First(string,".{1,2}(縣|市|鄉|鎮|區|段|號|路)")!=""){
+      isAddress = true;
+    }
+
+    
+
+    return isContain | isAddress;
+  }
+
+  Contain(string){
+    var notContainList = ["姓名","取件人","台灣","中國","地址"];
+    var isContain = false;
+    notContainList.forEach(notContaiString=>{
+      if(notContaiString == string){
+        isContain = true;
+        return true;
+      }
+    });
+    return isContain;
   }
 
 }
