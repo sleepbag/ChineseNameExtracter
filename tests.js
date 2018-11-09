@@ -99,18 +99,5 @@ QUnit.test( "綜合測試", function( assert ) {
   assert.deepEqual( result, pass, "Passed!" );
 });
 
-QUnit.test( "綜合測試", function( assert ) {
 
-  var mobile = new ChineseNameExtracter();
-  var result = mobile.Process("黃宏成 台灣阿成世界偉人財神總統");
-  console.log(result)
-  var pass = 	
-  [
-    {
-      "姓": "陳",
-      "姓名": "陳小寶"
-    }
-  ]
-  assert.deepEqual( result, pass, "Passed!" );
-});
 

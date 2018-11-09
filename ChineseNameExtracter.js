@@ -5325,7 +5325,7 @@ class ChineseNameExtracter {
     var isContain = this.Contain(string);
     var isAddress = false;
 
-    if(regEx_First(string,".{1,2}(縣|市|鄉|鎮|區|段|號|路)")!=""){
+    if(regEx_First(string,".{1,3}(縣|市|鄉|區|段|號|路|街)")!=""){
       isAddress = true;
     }
 
@@ -5335,7 +5335,46 @@ class ChineseNameExtracter {
   }
 
   Contain(string){
-    var notContainList = ["姓名","取件人","台灣","中國","地址"];
+    // 有人名子中有"鎮"
+    var notContainList = ["姓名","取件人","台灣","中國","地址","電話",
+    "關西鎮",
+    "新埔鎮",
+    "竹東鎮",
+    "苑裡鎮",
+    "通霄鎮",
+    "竹南鎮",
+    "後龍鎮",
+    "卓蘭鎮",
+    "和美鎮",
+    "鹿港鎮",
+    "北斗鎮",
+    "溪湖鎮",
+    "田中鎮",
+    "二林鎮",
+    "埔里鎮",
+    "草屯鎮",
+    "竹山鎮",
+    "集集鎮",
+    "斗南鎮",
+    "虎尾鎮",
+    "西螺鎮",
+    "土庫鎮",
+    "北港鎮",
+    "布袋鎮",
+    "大林鎮",
+    "潮州鎮",
+    "東港鎮",
+    "恆春鎮",
+    "羅東鎮",
+    "蘇澳鎮",
+    "頭城鎮",
+    "鳳林鎮",
+    "玉里鎮",
+    "成功鎮",
+    "關山鎮",
+    "金城鎮",
+    "金湖鎮",
+    "金沙鎮"];
     var isContain = false;
     notContainList.forEach(notContaiString=>{
       if(notContaiString == string){
